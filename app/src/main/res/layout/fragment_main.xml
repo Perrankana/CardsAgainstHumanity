@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.pandiandcode.cardsagainsthumanity.viewModel.MainViewModel" />
@@ -25,7 +25,8 @@
             app:layout_constraintEnd_toStartOf="@+id/whiteDeck"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:onClickListener="@{ viewModel.onBlackDeckClick}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,9 +61,16 @@
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/blackDeck"
-            tools:listitem="@layout/card_item_layout"
-            tools:itemCount="2" />
+            tools:itemCount="2"
+            tools:listitem="@layout/card_item_layout" />
 
+        <include
+            android:id="@+id/blackCard"
+            layout="@layout/black_card_item_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:viewModel="@{viewModel.blackCardViewModel}"
+            isVisible="@{viewModel.blackCardViewModel.visible}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

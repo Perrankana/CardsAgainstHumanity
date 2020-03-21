@@ -2,4 +2,6 @@
     <string name="app_name">Cards Against Humanity</string>
     <string name="black_deck">Mazo Negro</string>
     <string name="white_deck">Mazo Blanco</string>
+    <string name="pick">Pick (%s)</string>
+    <string name="draw">Draw (%s)</string>
 </resources>
