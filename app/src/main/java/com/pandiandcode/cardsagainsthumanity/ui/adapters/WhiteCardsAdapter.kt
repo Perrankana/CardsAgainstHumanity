@@ -4,32 +4,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.pandiandcode.cardsagainsthumanity.R
 import com.pandiandcode.cardsagainsthumanity.BR
-import com.pandiandcode.cardsagainsthumanity.domain.Card
+import com.pandiandcode.cardsagainsthumanity.R
+import com.pandiandcode.cardsagainsthumanity.domain.WhiteCard
 
 class WhiteCardsAdapter : RecyclerView.Adapter<BindingHolder>() {
 
-    var onClickListener: (String) -> Unit = {}
+    var onClickListener: (Int) -> Unit = {}
 
-    private val whiteCards: MutableList<Card> = mutableListOf()
+    private val whiteCards: MutableList<WhiteCard> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder =
         BindingHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.card_item_layout, parent, false)
-        )
+        ).also { holder ->
+            holder.itemView.setOnClickListener {
+                onClickListener(whiteCards[holder.adapterPosition].id)
+            }
+        }
 
     override fun getItemCount(): Int = whiteCards.size
 
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         holder.binding?.setVariable(BR.card, whiteCards[position])
         holder.binding?.executePendingBindings()
-        holder.binding?.root?.setOnClickListener {
-            onClickListener(whiteCards[position].description)
-        }
     }
 
-    fun update(whiteCardsList: List<Card>) {
+    fun update(whiteCardsList: List<WhiteCard>) {
         val diffCallback = CardsDiffCallback(whiteCards, whiteCardsList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         whiteCards.clear()
@@ -38,20 +39,23 @@ class WhiteCardsAdapter : RecyclerView.Adapter<BindingHolder>() {
     }
 }
 
-class CardsDiffCallback(private val oldList: List<Card>, private val newList: List<Card>) : DiffUtil.Callback() {
+class CardsDiffCallback(
+    private val oldList: List<WhiteCard>,
+    private val newList: List<WhiteCard>
+) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
 
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].description === newList[newItemPosition].description
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        val (_, value, name) = oldList[oldPosition]
-        val (_, value1, name1) = newList[newPosition]
+        val (id) = oldList[oldPosition]
+        val (id1) = newList[newPosition]
 
-        return name == name1 && value == value1
+        return id == id1
     }
 }

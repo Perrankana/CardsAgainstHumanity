@@ -7,8 +7,8 @@ interface WhiteDeckRepository {
     fun getDeck(): WhiteCardDeck
 }
 
-class WhiteDeckRepositoryImp(val whiteCardDeckDataSource: WhiteCardDeckDataSource) {
-    fun getDeck() = WhiteCardDeck(whiteCardDeckDataSource.getWhiteCardDTOs().toDomain)
+class WhiteDeckRepositoryImp(val whiteCardDeckDataSource: WhiteCardDeckDataSource): WhiteDeckRepository {
+    override fun getDeck() = WhiteCardDeck(whiteCardDeckDataSource.getWhiteCardDTOs().toDomain)
 }
 
 val List<WhiteCardDTO>.toDomain: List<WhiteCard>

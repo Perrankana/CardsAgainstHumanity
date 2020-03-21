@@ -6,7 +6,7 @@
     <data>
         <variable
             name="card"
-            type="com.pandiandcode.cardsagainsthumanity.domain.Card" />
+            type="com.pandiandcode.cardsagainsthumanity.domain.WhiteCard" />
     </data>
 
     <androidx.cardview.widget.CardView
