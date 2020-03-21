@@ -1,0 +1,2 @@
+rootProject.name='Cards Against Humanity'
+include ':app'
