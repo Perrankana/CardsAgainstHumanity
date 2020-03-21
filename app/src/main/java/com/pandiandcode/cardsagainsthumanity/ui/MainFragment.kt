@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.pandiandcode.cardsagainsthumanity.databinding.FragmentMainBinding
 import com.pandiandcode.cardsagainsthumanity.domain.BlackDeckRepository
+import com.pandiandcode.cardsagainsthumanity.domain.WhiteDeckRepository
 import com.pandiandcode.cardsagainsthumanity.domain.usecases.GetBlackCard
 import com.pandiandcode.cardsagainsthumanity.viewModel.MainViewModel
 
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
         FragmentMainBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@MainFragment
-                viewModel = MainViewModel(GetBlackCard(BlackDeckRepository()))
+                viewModel = MainViewModel(GetBlackCard(BlackDeckRepository()), WhiteDeckRepository())
             }.root
 
 }
