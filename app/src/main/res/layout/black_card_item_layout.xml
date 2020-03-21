@@ -10,55 +10,63 @@
             type="com.pandiandcode.cardsagainsthumanity.viewModel.BlackCardViewModel" />
 
     </data>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="28dp"
-        android:backgroundTint="@color/black"
-        app:cardCornerRadius="5dp"
-        onClickListener="@{viewModel.onBlackDeckClose}">
+        android:layout_height="match_parent"
+        android:background="@color/overlay"
+        android:elevation="5dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            onClickListener="@{viewModel.onBlackDeckClose}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+            android:layout_height="150dp"
+            android:layout_margin="28dp"
+            android:backgroundTint="@color/black"
+            android:layout_gravity="center"
+            app:cardCornerRadius="5dp">
 
-            <TextView
-                android:id="@+id/card_description"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/card_draw"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@{viewModel.card.description}"
-                tools:text="Bla, bla, bla" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
 
-            <TextView
-                android:id="@+id/card_pick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                isVisible="@{viewModel.showPick()}"
-                android:text="@{String.format(@string/pick, viewModel.card.pick)}"
-                tools:text="Pick (1)" />
+                <TextView
+                    android:id="@+id/card_description"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@{viewModel.card.description}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/card_draw"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bla, bla, bla" />
 
-            <TextView
-                android:id="@+id/card_draw"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/card_pick"
-                app:layout_constraintEnd_toEndOf="parent"
-                isVisible="@{viewModel.showDraw()}"
-                android:text="@{String.format(@string/draw, viewModel.card.draw)}"
-                tools:text="Draw (1)" />
+                <TextView
+                    android:id="@+id/card_pick"
+                    isVisible="@{viewModel.showPick()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/pick, viewModel.card.pick)}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Pick (1)" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/card_draw"
+                    isVisible="@{viewModel.showDraw()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/draw, viewModel.card.draw)}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/card_pick"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Draw (1)" />
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </layout>
