@@ -10,7 +10,7 @@ import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 
 class WhiteCardsAdapter : RecyclerView.Adapter<BindingHolder>() {
 
-    var onClickListener: (Int) -> Unit = {}
+    var onClickListener: (WhiteCard) -> Unit = {}
 
     private val whiteCards: MutableList<WhiteCard> = mutableListOf()
 
@@ -19,7 +19,7 @@ class WhiteCardsAdapter : RecyclerView.Adapter<BindingHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.card_item_layout, parent, false)
         ).also { holder ->
             holder.itemView.setOnClickListener {
-                onClickListener(whiteCards[holder.adapterPosition].id)
+                onClickListener(whiteCards[holder.adapterPosition])
             }
         }
 

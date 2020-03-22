@@ -7,3 +7,10 @@ import androidx.databinding.BindingAdapter
 fun View.bindVisibility(visible: Boolean){
     visibility = if (visible) View.VISIBLE else View.GONE
 }
+
+@BindingAdapter("onClick")
+fun View.bindOnCLick(onClick:() -> Unit){
+    setOnClickListener {
+        onClick()
+    }
+}

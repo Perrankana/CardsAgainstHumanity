@@ -22,5 +22,4 @@ class MainFragment : Fragment() {
                 lifecycleOwner = this@MainFragment
                 viewModel = mainViewModel
             }.root
-
 }

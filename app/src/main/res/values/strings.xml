@@ -4,4 +4,6 @@
     <string name="white_deck">Mazo Blanco</string>
     <string name="pick">Pick (%s)</string>
     <string name="draw">Draw (%s)</string>
+    <string name="chosen_cards">%s cartas escogidas</string>
+    <string name="play_cards">Jugar</string>
 </resources>
