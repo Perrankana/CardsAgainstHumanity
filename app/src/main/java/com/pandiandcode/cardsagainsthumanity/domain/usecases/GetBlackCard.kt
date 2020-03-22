@@ -1,6 +1,6 @@
 package com.pandiandcode.cardsagainsthumanity.domain.usecases
 
-import com.pandiandcode.cardsagainsthumanity.domain.BlackCard
+import com.pandiandcode.cardsagainsthumanity.domain.model.BlackCard
 import com.pandiandcode.cardsagainsthumanity.domain.BlackDeckRepository
 import java.util.*
 

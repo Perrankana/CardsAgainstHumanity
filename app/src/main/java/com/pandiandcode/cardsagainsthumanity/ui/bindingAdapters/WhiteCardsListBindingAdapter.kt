@@ -2,7 +2,7 @@ package com.pandiandcode.cardsagainsthumanity.ui.bindingAdapters
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.pandiandcode.cardsagainsthumanity.domain.WhiteCard
+import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 import com.pandiandcode.cardsagainsthumanity.ui.adapters.WhiteCardsAdapter
 
 @BindingAdapter("whiteCards", "onClickListener")

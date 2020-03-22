@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pandiandcode.cardsagainsthumanity.BR
 import com.pandiandcode.cardsagainsthumanity.R
-import com.pandiandcode.cardsagainsthumanity.domain.WhiteCard
+import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 
 class WhiteCardsAdapter : RecyclerView.Adapter<BindingHolder>() {
 

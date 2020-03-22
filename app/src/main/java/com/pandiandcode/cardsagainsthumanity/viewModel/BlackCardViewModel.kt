@@ -1,6 +1,6 @@
 package com.pandiandcode.cardsagainsthumanity.viewModel
 
-import com.pandiandcode.cardsagainsthumanity.domain.BlackCard
+import com.pandiandcode.cardsagainsthumanity.domain.model.BlackCard
 
 data class BlackCardViewModel(
     val card: BlackCard? = null,

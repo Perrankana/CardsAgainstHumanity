@@ -3,7 +3,7 @@ package com.pandiandcode.cardsagainsthumanity.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pandiandcode.cardsagainsthumanity.domain.WhiteCard
+import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 import com.pandiandcode.cardsagainsthumanity.domain.WhiteDeckRepository
 import com.pandiandcode.cardsagainsthumanity.domain.usecases.GetBlackCard
 import kotlinx.coroutines.*

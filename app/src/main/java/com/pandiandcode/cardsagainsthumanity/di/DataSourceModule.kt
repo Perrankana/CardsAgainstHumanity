@@ -1,14 +1,13 @@
 package com.pandiandcode.cardsagainsthumanity.di
 
-import android.content.Context
 import com.pandiandcode.cardsagainsthumanity.localdatasource.BlackCardDeckDataSource
 import com.pandiandcode.cardsagainsthumanity.localdatasource.WhiteCardDeckDataSource
 import com.pandiandcode.helpers.FileJSONReader
+import org.koin.dsl.module
 
-fun getBlackDeckDataSource(context: Context): BlackCardDeckDataSource = BlackCardDeckDataSource(
-    FileJSONReader(context)
-)
+val databaseModule = module {
+    single { BlackCardDeckDataSource(get()) }
+    single { WhiteCardDeckDataSource(get()) }
+    single { FileJSONReader(get()) }
+}
 
-fun getWhiteDeckDataSource(context: Context): WhiteCardDeckDataSource = WhiteCardDeckDataSource(
-    FileJSONReader(context)
-)

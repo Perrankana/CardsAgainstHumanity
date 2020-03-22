@@ -1,6 +1,8 @@
 package com.pandiandcode.cardsagainsthumanity.di
 
-import android.content.Context
 import com.pandiandcode.cardsagainsthumanity.domain.usecases.GetBlackCard
+import org.koin.dsl.module
 
-fun getBlackCard(context: Context): GetBlackCard = GetBlackCard(getBlackDeckRepository(context))
+val useCasesModule = module {
+    factory { GetBlackCard(get()) }
+}

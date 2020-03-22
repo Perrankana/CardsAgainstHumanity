@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.pandiandcode.cardsagainsthumanity.databinding.FragmentMainBinding
-import com.pandiandcode.cardsagainsthumanity.di.getBlackCard
-import com.pandiandcode.cardsagainsthumanity.di.getWhitekDeckRepository
 import com.pandiandcode.cardsagainsthumanity.viewModel.MainViewModel
+import org.koin.android.ext.android.inject
 
 class MainFragment : Fragment() {
+    private val mainViewModel: MainViewModel by inject()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,10 +20,7 @@ class MainFragment : Fragment() {
         FragmentMainBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@MainFragment
-                viewModel = MainViewModel(
-                    getBlackCard(context!!),
-                    getWhitekDeckRepository(context!!)
-                )
+                viewModel = mainViewModel
             }.root
 
 }
