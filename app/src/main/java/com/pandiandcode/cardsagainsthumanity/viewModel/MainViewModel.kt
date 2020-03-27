@@ -1,9 +1,10 @@
 package com.pandiandcode.cardsagainsthumanity.viewModel
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.Response
+import com.pandiandcode.cardsagainsthumanity.domain.GameManager
 import com.pandiandcode.cardsagainsthumanity.domain.WhiteDeckRepository
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 import com.pandiandcode.cardsagainsthumanity.domain.usecases.GetBlackCard
@@ -11,7 +12,8 @@ import kotlinx.coroutines.*
 
 class MainViewModel(
     private val getBlackCard: GetBlackCard,
-    private val whiteDeckRepository: WhiteDeckRepository
+    private val whiteDeckRepository: WhiteDeckRepository,
+    private val gameManager: GameManager
 ) : ViewModel(), CoroutineScope by MainScope() {
 
     private val _blackCardViewModel: MutableLiveData<BlackCardViewModel> = MutableLiveData(
@@ -79,7 +81,15 @@ class MainViewModel(
 
     private fun onSubmitCards() {
         _playingWhiteCards.value?.let { playingCards ->
-            _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
+            launch {
+                val response = withContext(Dispatchers.IO) {
+                    gameManager.getPlayingCards()
+                }
+                when(response){
+                    is Response.Success -> _playingWhiteCards.value = playingCards.copy(cards = response.value[0].cards.toMutableList())
+                    is Response.Failed -> _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
+                }
+            }
         }
     }
 

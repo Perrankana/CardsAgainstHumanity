@@ -2,8 +2,8 @@ package com.pandiandcode.cardsagainsthumanity.domain
 
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCardDeck
-import com.pandiandcode.cardsagainsthumanity.localdatasource.WhiteCardDTO
-import com.pandiandcode.cardsagainsthumanity.localdatasource.WhiteCardDeckDataSource
+import com.pandiandcode.cardsagainsthumanity.datasource.localdatasource.WhiteCardDTO
+import com.pandiandcode.cardsagainsthumanity.datasource.localdatasource.WhiteCardDeckDataSource
 
 interface WhiteDeckRepository {
     fun getDeck(): WhiteCardDeck

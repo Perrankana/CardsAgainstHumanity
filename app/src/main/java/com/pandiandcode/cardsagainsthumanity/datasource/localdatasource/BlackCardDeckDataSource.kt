@@ -1,4 +1,4 @@
-package com.pandiandcode.cardsagainsthumanity.localdatasource
+package com.pandiandcode.cardsagainsthumanity.datasource.localdatasource
 
 import com.google.gson.Gson
 import com.pandiandcode.helpers.FileJSONReader

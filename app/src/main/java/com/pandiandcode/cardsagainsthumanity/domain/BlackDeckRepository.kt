@@ -2,8 +2,8 @@ package com.pandiandcode.cardsagainsthumanity.domain
 
 import com.pandiandcode.cardsagainsthumanity.domain.model.BlackCard
 import com.pandiandcode.cardsagainsthumanity.domain.model.BlackCardDeck
-import com.pandiandcode.cardsagainsthumanity.localdatasource.BlackCardDTO
-import com.pandiandcode.cardsagainsthumanity.localdatasource.BlackCardDeckDataSource
+import com.pandiandcode.cardsagainsthumanity.datasource.localdatasource.BlackCardDTO
+import com.pandiandcode.cardsagainsthumanity.datasource.localdatasource.BlackCardDeckDataSource
 
 interface BlackDeckRepository {
     fun getDeck(): BlackCardDeck
