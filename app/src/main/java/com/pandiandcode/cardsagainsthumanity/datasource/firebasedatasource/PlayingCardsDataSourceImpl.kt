@@ -1,11 +1,9 @@
 package com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource
 
-import com.google.firebase.firestore.FirebaseFirestore
 import com.pandiandcode.cardsagainsthumanity.datasource.PlayingCardsDataSource
 
-class PlayingCardsDataSourceImpl(private val db: FirebaseFirestore = FirebaseFirestore.getInstance()) :
+class PlayingCardsDataSourceImpl() :
     PlayingCardsDataSource {
-    private val playingCardsCollection = db.collection("playingCards")
 
     override suspend fun getPlayingCards(): Response<List<List<String>>> {
         return Response.Failed()
