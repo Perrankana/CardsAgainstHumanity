@@ -6,4 +6,5 @@
     <string name="draw">Draw (%s)</string>
     <string name="chosen_cards">%s cartas escogidas</string>
     <string name="play_cards">Jugar</string>
+    <string name="ok">Ok</string>
 </resources>

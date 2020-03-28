@@ -3,7 +3,7 @@ package com.pandiandcode.cardsagainsthumanity.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.Response
+import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.Result
 import com.pandiandcode.cardsagainsthumanity.domain.GameManager
 import com.pandiandcode.cardsagainsthumanity.domain.WhiteDeckRepository
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
@@ -26,10 +26,14 @@ class MainViewModel(
             { onSubmitCards() },
             { onRemoveCardFromGame(it) })
     )
+    private val _error: MutableLiveData<ErrorViewModel> = MutableLiveData(ErrorViewModel(show = false, close = {
+        closeError()
+    }))
 
     val blackCardViewModel: LiveData<BlackCardViewModel> = _blackCardViewModel
     val whiteCards: LiveData<List<WhiteCard>> = _whiteCards
     val playingWhiteCards: LiveData<PlayingWhiteCards> = _playingWhiteCards
+    val error: LiveData<ErrorViewModel> = _error
 
     val onBlackDeckClick: () -> Unit = {
         onBlackDeck()
@@ -41,6 +45,10 @@ class MainViewModel(
 
     val onWhiteCardClick: (WhiteCard) -> Unit = {
         onWhiteCard(it)
+    }
+
+    val closeError: () -> Unit = {
+        _error.value = _error.value?.copy(show = false, message = "")
     }
 
     private fun onWhiteCard(card: WhiteCard) {
@@ -65,6 +73,11 @@ class MainViewModel(
                 getBlackCard()
             }
             _blackCardViewModel.value = _blackCardViewModel.value?.copy(card = card, visible = true)
+
+            val result = withContext(Dispatchers.IO) {
+                gameManager.clearCards()
+            }
+            if (result is Result.Failed) _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${_error.value?.message}")
         }
     }
 
@@ -82,12 +95,12 @@ class MainViewModel(
     private fun onSubmitCards() {
         _playingWhiteCards.value?.let { playingCards ->
             launch {
-                val response = withContext(Dispatchers.IO) {
-                    gameManager.getPlayingCards()
+                val response : Result<Unit> = withContext(Dispatchers.IO) {
+                    gameManager.putPlayingCards(playingCards.cards.toList())
                 }
-                when(response){
-                    is Response.Success -> _playingWhiteCards.value = playingCards.copy(cards = response.value[0].cards.toMutableList())
-                    is Response.Failed -> _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
+                when (response) {
+                    is Result.Success -> _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
+                    is Result.Failed -> _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${_error.value?.message}")
                 }
             }
         }
@@ -112,3 +125,9 @@ data class PlayingWhiteCards(
 ) {
     val visible = cards.isEmpty()
 }
+
+data class ErrorViewModel(
+    val show: Boolean,
+    val close: () -> Unit,
+    val message: String = ""
+)

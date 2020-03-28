@@ -1,27 +1,31 @@
 package com.pandiandcode.cardsagainsthumanity.domain
 
 import com.pandiandcode.cardsagainsthumanity.datasource.PlayingCardsDataSource
-import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.Response
+import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.CardApiData
+import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.NewPlayingCardsApiData
+import com.pandiandcode.cardsagainsthumanity.datasource.firebasedatasource.Result
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 
 class GameManager(private val playingCardsDataSource: PlayingCardsDataSource) {
     suspend fun putPlayingCards(cards: List<WhiteCard>) =
-        playingCardsDataSource.putPlayingCards(cards.map { it.description })
+        playingCardsDataSource.putPlayingCards(NewPlayingCardsApiData(cards = cards.map { CardApiData(it.description) }) )
 
-    suspend fun getPlayingCards(): Response<List<PlayingCards>> =
+    suspend fun getPlayingCards(): Result<List<PlayingCards>> =
         playingCardsDataSource.getPlayingCards().map {
             it.map { cards ->
-                PlayingCards(cards.map { description ->
-                    WhiteCard(0, description)
+                PlayingCards(cards.cards.map { description ->
+                    WhiteCard(0, description.description)
                 })
             }
         }
+
+    suspend fun clearCards(): Result<Unit> = playingCardsDataSource.clearCards()
 }
 
 data class PlayingCards(val cards: List<WhiteCard>)
 
-fun <T, R> Response<T>.map(block: (T) -> R): Response<R> = if (this is Response.Success) {
-    Response.Success(block(this.value))
+fun <T, R>  Result<T>.map(block: (T) -> R):  Result<R> = if (this is  Result.Success) {
+    Result.Success(block(this.value))
 } else {
-    Response.Failed()
+    Result.Failed((this as Result.Failed).exception)
 }
