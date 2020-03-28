@@ -67,13 +67,15 @@ class MainViewModel(
     }
 
     private fun onWhiteDeck() {
-        launch {
-            val whiteCardsList = withContext(Dispatchers.IO) {
-                whiteDeckRepository.getDeck()
-            }.cards.shuffled()
-            val cardsToPick = 10 - (_whiteCards.value?.size ?: 0)
-            _whiteCards.value =
-                whiteCardsList.subList(0, cardsToPick) + (_whiteCards.value ?: emptyList())
+        if(playingWhiteCards.value?.cards?.isEmpty() == true) {
+            launch {
+                val whiteCardsList = withContext(Dispatchers.IO) {
+                    whiteDeckRepository.getDeck()
+                }.cards.shuffled()
+                val cardsToPick = 10 - (_whiteCards.value?.size ?: 0)
+                _whiteCards.value =
+                    whiteCardsList.subList(0, cardsToPick) + (_whiteCards.value ?: emptyList())
+            }
         }
     }
 
