@@ -33,7 +33,7 @@
  },
  {
    "id": 9,
-   "description": "Un juego de Bop ItTM."
+   "description": "Abascal en su caballo"
  },
  {
    "id": 10,
@@ -101,7 +101,7 @@
  },
  {
    "id": 26,
-   "description": "Una audiencia de estudio en directo."
+   "description": "Un chocho en lata"
  },
  {
    "id": 27,
@@ -160,10 +160,6 @@
    "description": "Una corrida en la boca sin avisar."
  },
  {
-   "id": 41,
-   "description": "Una mujer negra con mucha chispa."
- },
- {
    "id": 42,
    "description": "Un solo de saxofón."
  },
@@ -181,7 +177,7 @@
  },
  {
    "id": 46,
-   "description": "Una subscripción a Men ́s Fitness."
+   "description": "Una subscripción a Men's Health."
  },
  {
    "id": 47,
@@ -213,7 +209,7 @@
  },
  {
    "id": 54,
-   "description": "Aaron Burr."
+   "description": "Donal Trump."
  },
  {
    "id": 55,
@@ -221,7 +217,7 @@
  },
  {
    "id": 56,
-   "description": "Anfetaminas (AdderallTM)."
+   "description": "Anfetaminas"
  },
  {
    "id": 57,
@@ -245,7 +241,7 @@
  },
  {
    "id": 62,
-   "description": "Buffet Libre de gambas por $4.99."
+   "description": "Buffet Libre de gambas por 4.99."
  },
  {
    "id": 63,
@@ -270,10 +266,6 @@
  {
    "id": 68,
    "description": "Una lobotomía con un picahielos."
- },
- {
-   "id": 69,
-   "description": "Un giro argumental de M. Night Shyalaman."
  },
  {
    "id": 70,
@@ -1842,5 +1834,49 @@
  {
    "id": 461,
    "description": "DEBES CONSTRUIR PILONES ADICIONALES."
- }
+ },
+  {
+    "id": 462,
+    "description": "Test rápidos defectuosos"
+  },
+  {
+    "id": 463,
+    "description": "3 meses de confinamiento"
+  },
+  {
+    "id": 464,
+    "description": "Coronavirus"
+  },
+  {
+    "id": 465,
+    "description": "El satisfaire"
+  },
+  {
+    "id": 466,
+    "description": "Toserle en la cara a un yayo"
+  },
+  {
+    "id": 467,
+    "description": "Rollos de papel higiénico"
+  },
+  {
+    "id": 468,
+    "description": "Pablo Iglesias"
+  },
+  {
+    "id": 469,
+    "description": "Vox"
+  },
+  {
+    "id": 470,
+    "description": "Avalancha de papel higiénico"
+  },
+  {
+    "id": 471,
+    "description": "Mercadona el día que se declaró el estado de Alerta"
+  },
+  {
+    "id": 472,
+    "description": "Quedarte sin cerveza en plena cuarentena"
+  }
 ]

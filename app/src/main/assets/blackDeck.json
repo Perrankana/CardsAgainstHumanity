@@ -538,5 +538,11 @@
    "description": "¿Por qué me duele todo?",
    "draw": 1,
    "pick": 1
- }
+ },
+  {
+    "id": 91,
+    "description": "Mi actividad preferida durante el confinamiento es ________.",
+    "draw": 1,
+    "pick": 1
+  }
 ]
