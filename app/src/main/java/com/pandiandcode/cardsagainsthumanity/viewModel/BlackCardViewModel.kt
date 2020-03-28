@@ -75,7 +75,7 @@ class BlackCardViewModel(
             }
             when (result) {
                 is Result.Success -> {
-                    _responses.value = result.value.map { getWhiteCard(it.cards) }
+                    _responses.value = result.value.map { getWhiteCard(it.cards) }.shuffled()
                 }
                 is Result.Failed -> _error.value = _error.value?.copy(
                     show = true,
