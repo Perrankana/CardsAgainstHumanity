@@ -77,7 +77,7 @@ class MainViewModel(
             val result = withContext(Dispatchers.IO) {
                 gameManager.clearCards()
             }
-            if (result is Result.Failed) _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${_error.value?.message}")
+            if (result is Result.Failed) _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${result.exception.localizedMessage}")
         }
     }
 
@@ -100,7 +100,7 @@ class MainViewModel(
                 }
                 when (response) {
                     is Result.Success -> _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
-                    is Result.Failed -> _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${_error.value?.message}")
+                    is Result.Failed -> _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${response.exception.localizedMessage}")
                 }
             }
         }

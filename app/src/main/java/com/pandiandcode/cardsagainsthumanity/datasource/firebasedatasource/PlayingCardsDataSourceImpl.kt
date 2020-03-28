@@ -8,8 +8,7 @@ class PlayingCardsDataSourceImpl(private val api: CahApi = ApiFactory.getApi()) 
     override suspend fun getPlayingCards(): Result<List<PlayingCardsApiData>> = try {
         Result.Success(
             safeApiResult(
-                call = { api.getPlayingCards().await() },
-                errorMessage = "Error while fetching playing cards"
+                call = { api.getPlayingCards().await() }
             )
         )
     } catch (e: Exception) {
@@ -19,8 +18,7 @@ class PlayingCardsDataSourceImpl(private val api: CahApi = ApiFactory.getApi()) 
     override suspend fun putPlayingCards(cards: NewPlayingCardsApiData): Result<Unit> = try {
         Result.Success(
             safeApiResult(
-                call = { api.putPlayingCards(cards).await() },
-                errorMessage = "Error while saving cards"
+                call = { api.putPlayingCards(cards).await() }
             )
         )
     } catch (e: Exception) {
@@ -57,8 +55,7 @@ class PlayingCardsDataSourceImpl(private val api: CahApi = ApiFactory.getApi()) 
     private suspend fun deleteCard(id: String): Result<Unit> = try {
         Result.Success(
             safeApiResult(
-                call = { api.deleteCard(id).await() },
-                errorMessage = "Error while deleting card: $id"
+                call = { api.deleteCard(id).await() }
             )
         )
     } catch (e: Exception) {
@@ -66,14 +63,14 @@ class PlayingCardsDataSourceImpl(private val api: CahApi = ApiFactory.getApi()) 
     }
 
     private suspend fun <T : Any> safeApiResult(
-        call: suspend () -> retrofit2.Response<T>,
-        errorMessage: String
+        call: suspend () -> retrofit2.Response<T>
     ): T {
         val response = call.invoke()
         if (response.isSuccessful) {
             return response.body()!!
         } else {
-            throw IOException("Error Occurred during getting safe Api result, Custom ERROR - $errorMessage")
+            val errorMessage= response.errorBody()?.string()
+            throw IOException(errorMessage)
         }
     }
 
