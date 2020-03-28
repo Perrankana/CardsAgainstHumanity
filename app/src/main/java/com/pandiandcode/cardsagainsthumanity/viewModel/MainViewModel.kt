@@ -16,9 +16,6 @@ class MainViewModel(
     private val gameManager: GameManager
 ) : ViewModel(), CoroutineScope by MainScope() {
 
-    private val _blackCardViewModel: MutableLiveData<BlackCardViewModel> = MutableLiveData(
-        BlackCardViewModel(visible = false) { onBlackCardClose() }
-    )
     private val _whiteCards: MutableLiveData<List<WhiteCard>> = MutableLiveData(emptyList())
     private val _playingWhiteCards: MutableLiveData<PlayingWhiteCards> = MutableLiveData(
         PlayingWhiteCards(
@@ -26,17 +23,20 @@ class MainViewModel(
             { onSubmitCards() },
             { onRemoveCardFromGame(it) })
     )
-    private val _error: MutableLiveData<ErrorViewModel> = MutableLiveData(ErrorViewModel(show = false, close = {
-        closeError()
-    }))
+    private val _navigateToBlackCard: MutableLiveData<Boolean> = MutableLiveData()
 
-    val blackCardViewModel: LiveData<BlackCardViewModel> = _blackCardViewModel
+    private val _error: MutableLiveData<ErrorViewModel> =
+        MutableLiveData(ErrorViewModel(show = false, close = {
+            closeError()
+        }))
+
     val whiteCards: LiveData<List<WhiteCard>> = _whiteCards
     val playingWhiteCards: LiveData<PlayingWhiteCards> = _playingWhiteCards
+    val navigateToBlackCard: LiveData<Boolean> = _navigateToBlackCard
     val error: LiveData<ErrorViewModel> = _error
 
     val onBlackDeckClick: () -> Unit = {
-        onBlackDeck()
+        _navigateToBlackCard.value = true
     }
 
     val onWhiteDeckClick: () -> Unit = {
@@ -51,6 +51,9 @@ class MainViewModel(
         _error.value = _error.value?.copy(show = false, message = "")
     }
 
+    fun resetNavigation(){
+        _navigateToBlackCard.value = false
+    }
     private fun onWhiteCard(card: WhiteCard) {
         _whiteCards.value = _whiteCards.value?.filterNot {
             it == card
@@ -60,24 +63,6 @@ class MainViewModel(
             _playingWhiteCards.value = playingCards.copy(cards = playingCards.cards.also {
                 it.add(card)
             })
-        }
-    }
-
-    private fun onBlackCardClose() {
-        _blackCardViewModel.value = _blackCardViewModel.value?.copy(card = null, visible = false)
-    }
-
-    private fun onBlackDeck() {
-        launch {
-            val card = withContext(Dispatchers.IO) {
-                getBlackCard()
-            }
-            _blackCardViewModel.value = _blackCardViewModel.value?.copy(card = card, visible = true)
-
-            val result = withContext(Dispatchers.IO) {
-                gameManager.clearCards()
-            }
-            if (result is Result.Failed) _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${result.exception.localizedMessage}")
         }
     }
 
@@ -95,12 +80,16 @@ class MainViewModel(
     private fun onSubmitCards() {
         _playingWhiteCards.value?.let { playingCards ->
             launch {
-                val response : Result<Unit> = withContext(Dispatchers.IO) {
+                val response: Result<Unit> = withContext(Dispatchers.IO) {
                     gameManager.putPlayingCards(playingCards.cards.toList())
                 }
                 when (response) {
-                    is Result.Success -> _playingWhiteCards.value = playingCards.copy(cards = mutableListOf())
-                    is Result.Failed -> _error.value = _error.value?.copy(show = true, message = "Dile a Rocío que esto ha petao por: ${response.exception.localizedMessage}")
+                    is Result.Success -> _playingWhiteCards.value =
+                        playingCards.copy(cards = mutableListOf())
+                    is Result.Failed -> _error.value = _error.value?.copy(
+                        show = true,
+                        message = "Dile a Rocío que esto ha petao por: ${response.exception.localizedMessage}"
+                    )
                 }
             }
         }

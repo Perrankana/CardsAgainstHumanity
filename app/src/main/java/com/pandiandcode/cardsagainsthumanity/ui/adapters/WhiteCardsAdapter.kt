@@ -49,13 +49,10 @@ class CardsDiffCallback(
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        val (id) = oldList[oldPosition]
-        val (id1) = newList[newPosition]
-
-        return id == id1
+        return oldList[oldPosition] == newList[newPosition]
     }
 }

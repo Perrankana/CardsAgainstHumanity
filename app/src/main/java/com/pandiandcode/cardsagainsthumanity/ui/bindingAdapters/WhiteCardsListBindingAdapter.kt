@@ -5,14 +5,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pandiandcode.cardsagainsthumanity.domain.model.WhiteCard
 import com.pandiandcode.cardsagainsthumanity.ui.adapters.WhiteCardsAdapter
 
-@BindingAdapter("whiteCards", "onClickListener")
-fun RecyclerView.bindCards(whiteCardsList: List<WhiteCard>, onClickListener: ((WhiteCard) -> Unit)) {
+@BindingAdapter("whiteCards", "onClickListener", requireAll = false)
+fun RecyclerView.bindCards(whiteCardsList: List<WhiteCard>, onClickListener: ((WhiteCard) -> Unit)? = {}) {
     adapter?.apply {
         (this as? WhiteCardsAdapter)?.update(whiteCardsList)
     } ?: run {
         adapter = WhiteCardsAdapter().apply {
             update(whiteCardsList)
-            this.onClickListener = onClickListener
+            this.onClickListener = onClickListener ?: {}
         }
     }
 }
